@@ -1,0 +1,41 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/YOUR_USERNAME/docker-jenkins-project.git'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'pytest test.py -v'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t my-python-app .'
+            }
+        }
+
+        stage('Docker Run') {
+            steps {
+                sh 'docker run --rm my-python-app'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Docker Jenkins pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'Docker Jenkins pipeline failed!'
+        }
+    }
+}
