@@ -4,11 +4,7 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/YOUR_USERNAME/docker-jenkins-project.git'
-            }
-        }
+        
 
         stage('Test') {
             steps {
